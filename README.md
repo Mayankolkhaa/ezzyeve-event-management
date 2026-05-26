@@ -304,7 +304,7 @@ Mayank Olkha
 
 ## 📧 Contact
 
-- Email: your-email@example.com
+- Email: itsmrolkha1318@gmail.com
 - GitHub: https://github.com/Mayankolkhaa
 - LinkedIn: https://linkedin.com/in/Mayankolkhaa
 
