@@ -192,27 +192,25 @@ EDA helps improve marketplace recommendations and platform scalability.
 
 ## Landing Page
 
-Add Screenshot Here
-
-```md
 ![Landing Page](./screenshots/landingpage.png)
-```
 
 ---
 
 ## Services Page
 
-```md
 ![Services Page](./screenshots/services.png)
-```
 
 ---
 
 ## Vendor Registration
 
-```md
 ![Vendor Registration](./screenshots/vendor-register.png)
-```
+
+---
+
+## Admin Dashboard
+
+![Admin Dashboard](./screenshots/admin-dashboard.png)
 
 ---
 
