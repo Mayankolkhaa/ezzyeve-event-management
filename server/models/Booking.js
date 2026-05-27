@@ -47,5 +47,5 @@ const Booking =
     "Booking",
     bookingSchema
   );
-
+  
 export default Booking;

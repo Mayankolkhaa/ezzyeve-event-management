@@ -6,11 +6,17 @@ const BookingPage = () => {
   const [step, setStep] = useState(1);
 
   const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    eventDate: "",
+
     eventType: "",
     city: "",
     budget: "",
     guests: "",
     services: [],
+
   });
 
   // HANDLE INPUT
@@ -28,9 +34,7 @@ const BookingPage = () => {
 
   const toggleService = (service) => {
 
-    if (
-      formData.services.includes(service)
-    ) {
+    if (formData.services.includes(service)) {
 
       setFormData({
         ...formData,
@@ -66,6 +70,18 @@ const BookingPage = () => {
           "http://localhost:5000/api/bookings",
 
           {
+            fullName:
+              formData.fullName,
+
+            email:
+              formData.email,
+
+            phone:
+              formData.phone,
+
+            eventDate:
+              formData.eventDate,
+
             eventType:
               formData.eventType,
 
@@ -80,6 +96,9 @@ const BookingPage = () => {
 
             services:
               formData.services,
+
+            status:
+              "pending",
           }
 
         );
@@ -119,6 +138,41 @@ const BookingPage = () => {
           <div>
 
             <div className="grid md:grid-cols-2 gap-6">
+
+              {/* PERSONAL DETAILS */}
+
+              <input
+                type="text"
+                name="fullName"
+                placeholder="Full Name"
+                onChange={handleChange}
+                className="border p-4 rounded-2xl"
+              />
+
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                onChange={handleChange}
+                className="border p-4 rounded-2xl"
+              />
+
+              <input
+                type="text"
+                name="phone"
+                placeholder="Phone Number"
+                onChange={handleChange}
+                className="border p-4 rounded-2xl"
+              />
+
+              <input
+                type="date"
+                name="eventDate"
+                onChange={handleChange}
+                className="border p-4 rounded-2xl"
+              />
+
+              {/* EVENT DETAILS */}
 
               <select
                 name="eventType"
@@ -311,6 +365,30 @@ const BookingPage = () => {
 
             <div className="space-y-4 text-xl">
 
+              {/* CUSTOMER DETAILS */}
+
+              <p>
+                <strong>Name:</strong>{" "}
+                {formData.fullName}
+              </p>
+
+              <p>
+                <strong>Email:</strong>{" "}
+                {formData.email}
+              </p>
+
+              <p>
+                <strong>Phone:</strong>{" "}
+                {formData.phone}
+              </p>
+
+              <p>
+                <strong>Event Date:</strong>{" "}
+                {formData.eventDate}
+              </p>
+
+              {/* EVENT DETAILS */}
+
               <p>
                 <strong>Event:</strong>{" "}
                 {formData.eventType}
@@ -334,6 +412,13 @@ const BookingPage = () => {
               <p>
                 <strong>Services:</strong>{" "}
                 {formData.services.join(", ")}
+              </p>
+
+              <p>
+                <strong>Status:</strong>{" "}
+                <span className="text-yellow-600 font-semibold">
+                  Pending
+                </span>
               </p>
 
             </div>

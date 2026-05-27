@@ -16,12 +16,47 @@ const AdminDashboard = () => {
   const navigate =
     useNavigate();
 
-  // STATE
+  // STATES
 
   const [vendors, setVendors] =
     useState([]);
 
+  const [bookings, setBookings] =
+    useState([]);
+
+  // =========================
+  // UPDATE BOOKING STATUS
+  // =========================
+
+  const updateStatus = async (
+    id,
+    status
+  ) => {
+
+    try {
+
+      await axios.put(
+        `http://localhost:5000/api/bookings/${id}`,
+        { status }
+      );
+
+      alert(
+        `Booking ${status}`
+      );
+
+      fetchBookings();
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
+
+  // =========================
   // CHECK ADMIN LOGIN
+  // =========================
 
   useEffect(() => {
 
@@ -40,13 +75,21 @@ const AdminDashboard = () => {
 
   }, []);
 
-  // FETCH VENDORS
+  // =========================
+  // FETCH DATA
+  // =========================
 
   useEffect(() => {
 
     fetchVendors();
 
+    fetchBookings();
+
   }, []);
+
+  // =========================
+  // FETCH VENDORS
+  // =========================
 
   const fetchVendors = async () => {
 
@@ -67,9 +110,36 @@ const AdminDashboard = () => {
 
   };
 
-  // APPROVE VENDOR
+  // =========================
+  // FETCH BOOKINGS
+  // =========================
 
-  const approveVendor = async (id) => {
+  const fetchBookings = async () => {
+
+    try {
+
+      const response =
+        await axios.get(
+          "http://localhost:5000/api/bookings"
+        );
+
+      setBookings(response.data);
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
+
+  // =========================
+  // APPROVE VENDOR
+  // =========================
+
+  const approveVendor = async (
+    id
+  ) => {
 
     try {
 
@@ -91,7 +161,9 @@ const AdminDashboard = () => {
 
   };
 
+  // =========================
   // LOGOUT
+  // =========================
 
   const handleLogout = () => {
 
@@ -129,7 +201,7 @@ const AdminDashboard = () => {
 
         </div>
 
-        {/* LOGOUT BUTTON */}
+        {/* LOGOUT */}
 
         <button
           onClick={handleLogout}
@@ -142,170 +214,409 @@ const AdminDashboard = () => {
 
       </div>
 
-      {/* TABLE */}
+      {/* ====================== */}
+      {/* VENDOR MANAGEMENT */}
+      {/* ====================== */}
 
-      <div className="max-w-7xl mx-auto mt-16 bg-white rounded-[32px] shadow-xl overflow-hidden">
+      <div className="mt-16">
 
-        <table className="w-full">
+        <div className="mb-8">
 
-          <thead className="bg-[#8B1A2E] text-white">
+          <p className="uppercase tracking-[3px] text-xs text-[#C9922A] mb-4">
 
-            <tr>
+            ✦ Vendor Management
 
-              <th className="p-5 text-left">
-                Vendor
-              </th>
+          </p>
 
-              <th className="p-5 text-left">
-                Category
-              </th>
+          <h2 className="font-serif text-5xl text-[#8B1A2E] font-semibold">
 
-              <th className="p-5 text-left">
-                City
-              </th>
+            Registered Vendors
 
-              <th className="p-5 text-left">
-                Price
-              </th>
+          </h2>
 
-              <th className="p-5 text-left">
-                Status
-              </th>
+        </div>
 
-              <th className="p-5 text-left">
-                Action
-              </th>
+        <div className="bg-white rounded-[32px] shadow-xl overflow-hidden">
 
-            </tr>
+          <table className="w-full">
 
-          </thead>
+            <thead className="bg-[#8B1A2E] text-white">
 
-          <tbody>
+              <tr>
 
-            {vendors.map((vendor) => (
+                <th className="p-5 text-left">
+                  Vendor
+                </th>
 
-              <tr
-                key={vendor._id}
-                className="border-b"
-              >
+                <th className="p-5 text-left">
+                  Category
+                </th>
 
-                {/* VENDOR */}
+                <th className="p-5 text-left">
+                  City
+                </th>
 
-                <td className="p-5">
+                <th className="p-5 text-left">
+                  Price
+                </th>
 
-                  <div className="flex items-center gap-4">
+                <th className="p-5 text-left">
+                  Status
+                </th>
 
-                    <img
-                      src={
-                        vendor.image ||
-                        "https://images.unsplash.com/photo-1519167758481-83f550bb49b3"
-                      }
-                      alt={vendor.name}
-                      className="w-16 h-16 rounded-2xl object-cover"
-                    />
+                <th className="p-5 text-left">
+                  Action
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              {vendors.map((vendor) => (
+
+                <tr
+                  key={vendor._id}
+                  className="border-b"
+                >
+
+                  <td className="p-5">
+
+                    <div className="flex items-center gap-4">
+
+                      <img
+                        src={
+                          vendor.image ||
+                          "https://images.unsplash.com/photo-1519167758481-83f550bb49b3"
+                        }
+                        alt={vendor.name}
+                        className="w-16 h-16 rounded-2xl object-cover"
+                      />
+
+                      <div>
+
+                        <h3 className="font-semibold">
+
+                          {vendor.name}
+
+                        </h3>
+
+                        <p className="text-sm text-[#777]">
+
+                          {vendor.description}
+
+                        </p>
+
+                      </div>
+
+                    </div>
+
+                  </td>
+
+                  <td className="p-5">
+                    {vendor.category}
+                  </td>
+
+                  <td className="p-5">
+                    {vendor.city}
+                  </td>
+
+                  <td className="p-5">
+                    ₹{vendor.price}
+                  </td>
+
+                  <td className="p-5">
+
+                    <span
+                      className={`px-4 py-2 rounded-full text-sm ${
+                        vendor.status ===
+                        "Approved"
+                          ? "bg-green-100 text-green-700"
+                          : "bg-yellow-100 text-yellow-700"
+                      }`}
+                    >
+
+                      {vendor.status}
+
+                    </span>
+
+                  </td>
+
+                  <td className="p-5">
+
+                    {vendor.status ===
+                    "Pending" ? (
+
+                      <button
+                        onClick={() =>
+                          approveVendor(
+                            vendor._id
+                          )
+                        }
+                        className="bg-[#8B1A2E] hover:bg-[#C4374F] transition text-white px-5 py-3 rounded-2xl"
+                      >
+
+                        Approve
+
+                      </button>
+
+                    ) : (
+
+                      <span className="text-green-600 font-semibold">
+
+                        Approved
+
+                      </span>
+
+                    )}
+
+                  </td>
+
+                </tr>
+
+              ))}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+      {/* ====================== */}
+      {/* BOOKINGS SECTION */}
+      {/* ====================== */}
+
+      <div className="mt-20">
+
+        <div className="mb-8">
+
+          <p className="uppercase tracking-[3px] text-xs text-[#C9922A] mb-4">
+
+            ✦ Event Bookings
+
+          </p>
+
+          <h2 className="font-serif text-5xl text-[#8B1A2E] font-semibold">
+
+            Registered Bookings
+
+          </h2>
+
+        </div>
+
+        <div className="bg-white rounded-[32px] shadow-xl overflow-hidden overflow-x-auto">
+
+          <table className="w-full">
+
+            <thead className="bg-[#8B1A2E] text-white">
+
+              <tr>
+
+                <th className="p-5 text-left">
+                  Customer
+                </th>
+
+                <th className="p-5 text-left">
+                  Event
+                </th>
+
+                <th className="p-5 text-left">
+                  City
+                </th>
+
+                <th className="p-5 text-left">
+                  Guests
+                </th>
+
+                <th className="p-5 text-left">
+                  Budget
+                </th>
+
+                <th className="p-5 text-left">
+                  Date
+                </th>
+
+                <th className="p-5 text-left">
+                  Status
+                </th>
+
+                <th className="p-5 text-left">
+                  Actions
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              {bookings.map((booking) => (
+
+                <tr
+                  key={booking._id}
+                  className="border-b"
+                >
+
+                  {/* CUSTOMER */}
+
+                  <td className="p-5">
 
                     <div>
 
-                      <h3 className="font-semibold">
+                      <h3 className="font-semibold text-lg">
 
-                        {vendor.name}
+                        {booking.fullName}
 
                       </h3>
 
-                      <p className="text-sm text-[#777]">
+                      <p className="text-sm text-gray-500">
 
-                        {vendor.description}
+                        {booking.email}
+
+                      </p>
+
+                      <p className="text-sm text-gray-500">
+
+                        {booking.phone}
 
                       </p>
 
                     </div>
 
-                  </div>
+                  </td>
 
-                </td>
+                  {/* EVENT */}
 
-                {/* CATEGORY */}
+                  <td className="p-5">
 
-                <td className="p-5">
+                    {booking.eventType}
 
-                  {vendor.category}
+                  </td>
 
-                </td>
+                  {/* CITY */}
 
-                {/* CITY */}
+                  <td className="p-5">
 
-                <td className="p-5">
+                    {booking.city}
 
-                  {vendor.city}
+                  </td>
 
-                </td>
+                  {/* GUESTS */}
 
-                {/* PRICE */}
+                  <td className="p-5">
 
-                <td className="p-5">
+                    {booking.guests}
 
-                  ₹{vendor.price}
+                  </td>
 
-                </td>
+                  {/* BUDGET */}
 
-                {/* STATUS */}
+                  <td className="p-5 text-[#8B1A2E] font-semibold">
 
-                <td className="p-5">
+                    ₹{booking.budget}
 
-                  <span
-                    className={`px-4 py-2 rounded-full text-sm ${
-                      vendor.status ===
-                      "Approved"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-yellow-100 text-yellow-700"
-                    }`}
-                  >
+                  </td>
 
-                    {vendor.status}
+                  {/* DATE */}
 
-                  </span>
+                  <td className="p-5">
 
-                </td>
+                    {booking.eventDate}
 
-                {/* ACTION */}
+                  </td>
 
-                <td className="p-5">
+                  {/* STATUS */}
 
-                  {vendor.status ===
-                  "Pending" ? (
+                  <td className="p-5">
 
-                    <button
-                      onClick={() =>
-                        approveVendor(
-                          vendor._id
-                        )
-                      }
-                      className="bg-[#8B1A2E] hover:bg-[#C4374F] transition text-white px-5 py-3 rounded-2xl"
+                    <span
+                      className={`px-4 py-2 rounded-full text-sm font-semibold ${
+                        booking.status ===
+                        "accepted"
+                          ? "bg-green-100 text-green-700"
+
+                          : booking.status ===
+                            "declined"
+                          ? "bg-red-100 text-red-700"
+
+                          : booking.status ===
+                            "change_requested"
+                          ? "bg-blue-100 text-blue-700"
+
+                          : "bg-yellow-100 text-yellow-700"
+                      }`}
                     >
 
-                      Approve
-
-                    </button>
-
-                  ) : (
-
-                    <span className="text-green-600 font-semibold">
-
-                      Approved
+                      {booking.status}
 
                     </span>
 
-                  )}
+                  </td>
 
-                </td>
+                  {/* ACTIONS */}
 
-              </tr>
+                  <td className="p-5">
 
-            ))}
+                    <div className="flex flex-wrap gap-2">
 
-          </tbody>
+                      <button
+                        onClick={() =>
+                          updateStatus(
+                            booking._id,
+                            "accepted"
+                          )
+                        }
+                        className="bg-green-500 hover:bg-green-600 transition text-white px-4 py-2 rounded-xl"
+                      >
 
-        </table>
+                        Accept
+
+                      </button>
+
+                      <button
+                        onClick={() =>
+                          updateStatus(
+                            booking._id,
+                            "declined"
+                          )
+                        }
+                        className="bg-red-500 hover:bg-red-600 transition text-white px-4 py-2 rounded-xl"
+                      >
+
+                        Decline
+
+                      </button>
+
+                      <button
+                        onClick={() =>
+                          updateStatus(
+                            booking._id,
+                            "change_requested"
+                          )
+                        }
+                        className="bg-blue-500 hover:bg-blue-600 transition text-white px-4 py-2 rounded-xl"
+                      >
+
+                        Change Date
+
+                      </button>
+
+                    </div>
+
+                  </td>
+
+                </tr>
+
+              ))}
+
+            </tbody>
+
+          </table>
+
+        </div>
 
       </div>
 

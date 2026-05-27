@@ -74,4 +74,60 @@ router.get("/", async (req, res) => {
 
 });
 
+/* GET ALL BOOKINGS */
+
+router.get("/", async (req, res) => {
+
+  try {
+
+    const bookings =
+      await Booking.find();
+
+    res.json(bookings);
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+      message:
+        "Failed to fetch bookings",
+    });
+
+  }
+
+});
+
+router.put("/:id", async (req, res) => {
+
+  try {
+
+    const updatedBooking =
+      await Booking.findByIdAndUpdate(
+
+        req.params.id,
+
+        {
+          status: req.body.status,
+        },
+
+        {
+          new: true,
+        }
+
+      );
+
+    res.json(updatedBooking);
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message,
+    });
+
+  }
+
+});
+
+
 export default router;
