@@ -167,7 +167,7 @@ const VendorRegisterPage = () => {
               </option>
 
               <option>
-                Catering
+                Catering Services
               </option>
 
               <option>
@@ -175,13 +175,20 @@ const VendorRegisterPage = () => {
               </option>
 
               <option>
-                Decoration
+                Decor and Florals
               </option>
 
               <option>
                 Entertainment
               </option>
 
+              <option>
+                Bridal wear
+              </option>
+
+              <option>
+                Car Rental
+              </option>
             </select>
 
           </div>
