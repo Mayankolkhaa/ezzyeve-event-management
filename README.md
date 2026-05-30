@@ -214,12 +214,6 @@ EDA helps improve marketplace recommendations and platform scalability.
 
 ---
 
-## Admin Dashboard
-
-```md
-![Admin Dashboard](./screenshots/admin-dashboard.png)
-```
-
 ---
 
 # How to Run This Project
