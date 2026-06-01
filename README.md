@@ -292,7 +292,7 @@ These features can transform EzzyEve into a scalable production-ready event mark
 
 ## 👨‍💻 Author
 
-Mayank Olkha
+Mayank Kumar Olkha
 
 ---
 
