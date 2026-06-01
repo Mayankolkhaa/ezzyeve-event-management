@@ -223,7 +223,7 @@ const AboutPage = () => {
               <div className="text-5xl mb-6">📸</div>
 
               <h3 className="font-serif text-3xl font-semibold">
-                Memories
+                Memories.. Memories
               </h3>
 
               <p className="mt-4 text-[#7A5C48] leading-8">
