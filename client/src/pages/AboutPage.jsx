@@ -213,7 +213,7 @@ const AboutPage = () => {
               </h3>
 
               <p className="mt-4 text-[#7A5C48] leading-8">
-                Premium cuisines and curated dining experiences.
+                Premium cuisines and curated dining experiences is here...
               </p>
 
             </div>
