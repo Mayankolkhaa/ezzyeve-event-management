@@ -61,7 +61,7 @@ const EventsPage = () => {
     <div className="bg-[#FBF6EE] text-[#2C1A10] overflow-x-hidden">
 
       {/* HERO SECTION */}
-      <section className="relative min-h-screen flex items-center px-6 lg:px-16 pt-32 overflow-hidden">
+      <section className="relative flex items-center px-6 lg:px-16 pt-32 overflow-hidden">
 
         {/* BACKGROUND */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#f6e5c3_0%,#FBF6EE_60%)]"></div>
